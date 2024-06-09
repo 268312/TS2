@@ -13,5 +13,8 @@
   "user ID" : "User ID",
   "loan date" : "Loan date",
   "due date" : "Due date",
-  "return date" : "Return date"
+  "return date" : "Return date",
+  "add user" : "Add a user",
+  "add book" : "Add a book",
+  "add loan" : "Add a loan"
 }

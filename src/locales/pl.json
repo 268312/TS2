@@ -14,5 +14,16 @@
   "book id" : "Nr książki",
   "loan date" : "Data wypożyczenia",
   "due date" : "Termin oddania",
-  "return date" : "Data oddania"
+  "return date" : "Data oddania",
+  "add user" : "Dodaj użytkownika",
+  "add book" : "Dodaj książkę",
+  "add loan" : "Dodaj wypożyczenie",
+  "title" : "Tytuł",
+  "author" : "Autor",
+  "ISBN" : "ISBN",
+  "publish year" : "Rok wydania",
+  "publisher" : "Wydawnictwo",
+  "available copies" : "Dostępne egzemplarze",
+  "cancel" : "anuluj",
+  "add" : "dodaj"
 }

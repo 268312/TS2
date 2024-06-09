@@ -60,7 +60,7 @@ function CustomAppBar() {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#E08D96' }}>
+        <AppBar position="static" sx={{ backgroundColor: '#E08D96', color: '#FFFFFF' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
