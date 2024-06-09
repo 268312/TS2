@@ -8,18 +8,32 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
+import {useApi} from "../api/ApiProvider";
+import {useTranslation} from "react-i18next";
 
 
 function LoginForm() {
     const navigate = useNavigate();
+    const {t} = useTranslation();
+    const apiClient = useApi();
     const initialValues = { username: '', password: '', rememberMe: false};
     const onSubmit = useCallback(
-        (values: {username: String; password: String}, formik: any) => {
-            navigate('/home');}, [navigate]);
+        (values: {username: string; password: string}, formik: any) => {
+            apiClient.login(values).then((response) => {
+                if (response.success) {
+                    navigate('/home');
+                } else {
+                    formik.setFieldError('username', t('invalid_username_password'));
+                }
+            });
+        },
+            [apiClient, navigate],
+        );
+
 
     const validationSchema = useMemo(() => yup.object().shape({
-        username: yup.string().required('Required'),
-        password: yup.string().required('Required').min(8, 'Must be 8 characters')})
+        username: yup.string().required(t('required')),
+        password: yup.string().required(t('required')).min(8, t('password_8char'))})
     , [])
     return(
         <div>
@@ -41,7 +55,7 @@ function LoginForm() {
                             marginLeft: 5
                         }}
                     >
-                        Library
+                        {t('library')}
                     </Typography>
             </Toolbar>
         </AppBar>
@@ -52,7 +66,7 @@ function LoginForm() {
             {(formik: any) => (<form className="Login-form" id="signForm" onSubmit={formik.handleSubmit} noValidate>
                 <TextField
                     id="username"
-                    label="Username"
+                    label= {t('username')}
                     variant="outlined"
                     name='username'
                     onChange={formik.handleChange}
@@ -61,7 +75,7 @@ function LoginForm() {
                     helperText = {formik.touched.username && formik.errors.username}/>
                 <TextField
                     id="password"
-                    label="Password"
+                    label= {t('password')}
                     variant="outlined"
                     type="password"
                     name='password'

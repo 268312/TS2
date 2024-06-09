@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import './LoansList.css';
 import CustomAppBar from '../app-bar/AppBar';
 import {Box} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -47,6 +48,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function StickyHeaderTable() {
+    const { t } = useTranslation();
     return (
         <div>
             <CustomAppBar />
@@ -55,12 +57,12 @@ export default function StickyHeaderTable() {
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Loan ID</StyledTableCell>
-                        <StyledTableCell align="right">User ID</StyledTableCell>
-                        <StyledTableCell align="right">Book ID</StyledTableCell>
-                        <StyledTableCell align="right">Loan Date</StyledTableCell>
-                        <StyledTableCell align="right">Due Date</StyledTableCell>
-                        <StyledTableCell align="right">Return Date</StyledTableCell>
+                        <StyledTableCell>{t('loan id')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('user id')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('book id')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('loan date')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('due date')}</StyledTableCell>
+                        <StyledTableCell align="right">{t('return date')}</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

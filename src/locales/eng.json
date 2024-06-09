@@ -1,0 +1,17 @@
+{
+  "library" : "Library",
+  "home" : "Home",
+  "books list" : "Books list",
+  "loans list" : "Loans list",
+  "log out" : "Log out",
+  "username" : "Username",
+  "password" : "Password",
+  "password_8char" : "Must be 8 characters",
+  "required" : "Required",
+  "invalid_username_password" : "Invalid username or password",
+  "loan id": "Loan ID",
+  "user ID" : "User ID",
+  "loan date" : "Loan date",
+  "due date" : "Due date",
+  "return date" : "Return date"
+}

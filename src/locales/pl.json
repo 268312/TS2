@@ -1,0 +1,18 @@
+{
+  "library" : "Biblioteka",
+  "home" : "Strona główna",
+  "books list" : "Lista książek",
+  "loans list" : "Lista wypożyczeń",
+  "log out" : "Wyloguj się",
+  "username" : "Nazwa użytkownika",
+  "password" : "Hasło",
+  "password_8char" : "Musi zawierać 8 znaków",
+  "required" : "Wymagane",
+  "invalid_username_password" : "Nieprawidłowa nazwa lub hasło",
+  "loan id": "Nr wypożyczenia",
+  "user id" : "Nr użytkownika",
+  "book id" : "Nr książki",
+  "loan date" : "Data wypożyczenia",
+  "due date" : "Termin oddania",
+  "return date" : "Data oddania"
+}

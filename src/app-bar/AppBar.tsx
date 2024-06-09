@@ -11,14 +11,15 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { AppBar, Box, Toolbar } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const pages = ['Home', 'Books list', 'Loans list'];
-const settings = ['Logout'];
+import { useTranslation } from 'react-i18next';
 
 function CustomAppBar() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const pages = [t('home'), t('books list'), t('loans list')];
+    const settings = [t('log out')];
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -32,13 +33,13 @@ function CustomAppBar() {
         setAnchorElNav(null);
         if (page) {
             switch (page) {
-                case 'Home':
+                case t('home'):
                     navigate('/home');
                     break;
-                case 'Books list':
+                case t('books list'):
                     navigate('/books');
                     break;
-                case 'Loans list':
+                case t('loans list'):
                     navigate('/loans');
                     break;
                 default:
@@ -51,8 +52,9 @@ function CustomAppBar() {
         setAnchorElUser(null);
         if (page) {
             switch (page) {
-                case 'Logout':
+                case t('log out'):
                     navigate('/login');
+                    break;
             }
         }
     };
@@ -76,7 +78,7 @@ function CustomAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        Library
+                        {t('library')}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -103,7 +105,6 @@ function CustomAppBar() {
                                 horizontal: 'left',
                             }}
                             open={Boolean(anchorElNav)}
-                            // onClose={handleCloseNavMenu}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
@@ -132,7 +133,7 @@ function CustomAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        Library
+                        {t('library')}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -166,7 +167,6 @@ function CustomAppBar() {
                                 horizontal: 'right',
                             }}
                             open={Boolean(anchorElUser)}
-                            // onClose={handleCloseUserMenu}
                         >
                             {settings.map((page) => (
                                 <MenuItem key={page} onClick={() => handleCloseUserMenu(page)}>
