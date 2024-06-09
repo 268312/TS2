@@ -37,20 +37,20 @@ export class LibraryClient {
     //         };
     //     }
     // }
-
-    public async getBooks(): Promise<ClientResponse<any | null>> {
-        try {
-            const response = await this.client.get('/books/getAll');
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError<Error>;
-            return {
-                success: false,
-                data: null,
-                statusCode: axiosError.response?.status || 0
-            };
-        }
-    }
+    //
+    // public async getBooks(): Promise<ClientResponse<any | null>> {
+    //     try {
+    //         const response = await this.client.get('/books/getAll');
+    //         return response.data;
+    //     } catch (error) {
+    //         const axiosError = error as AxiosError<Error>;
+    //         return {
+    //             success: false,
+    //             data: null,
+    //             statusCode: axiosError.response?.status || 0
+    //         };
+    //     }
+    // }
 
     public async addBook(bookData: bookDataDto): Promise<ClientResponse<bookResponseDto | null>> {
         try {
@@ -91,6 +91,40 @@ export class LibraryClient {
     public async addLoan(loanData: loanDataDto): Promise<ClientResponse<loanResponseDto | null>> {
         try {
             const response = await this.client.post('/loan/add', loanData);
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0
+            };
+        }
+    }
+    public async getLoans(): Promise<ClientResponse<loanResponseDto[] | null>> {
+        try {
+            const response = await this.client.get('/loan/all');
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0
+            };
+        }
+    }
+    public async getBooks(): Promise<ClientResponse<bookResponseDto[] | null>> {
+        try {
+            const response = await this.client.get('/books/getAll');
             return {
                 success: true,
                 data: response.data,

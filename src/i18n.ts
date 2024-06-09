@@ -19,6 +19,6 @@ i18n.use(LanguageDetector).use(initReactI18next).init({fallbackLng: 'eng', resou
 // i18n.changeLanguage('eng');
 
 // Z powrotem na polski (nie chciało wrócić po zmianie na ang)
-// i18n.changeLanguage('pl');
+i18n.changeLanguage('pl');
 
 export default i18n;
