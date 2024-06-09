@@ -1,6 +1,7 @@
 import axios, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 import {LoginDto, LoginResponseDto} from "./dto/login.dto";
 import {bookDataDto, bookResponseDto} from "./dto/bookData.dto";
+import {userDataDto, userResponseDto} from "./dto/userData.dto";
 
 export type ClientResponse<T> = {
     success: boolean,
@@ -51,6 +52,24 @@ export class LibraryClient {
     public async addBook(bookData: bookDataDto): Promise<ClientResponse<bookResponseDto | null>> {
         try {
             const response = await this.client.post('/books/add', bookData);
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0
+            };
+        }
+    }
+
+    public async addUser(userData: userDataDto): Promise<ClientResponse<userResponseDto | null>> {
+        try {
+            const response = await this.client.post('/user/add', userData);
             return {
                 success: true,
                 data: response.data,

@@ -25,5 +25,7 @@
   "publisher" : "Wydawnictwo",
   "available copies" : "Dostępne egzemplarze",
   "cancel" : "anuluj",
-  "add" : "dodaj"
+  "add" : "dodaj",
+  "email": "Adres email",
+  "full name": "Imię i nazwisko"
 }

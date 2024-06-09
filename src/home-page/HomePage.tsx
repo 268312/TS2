@@ -13,6 +13,7 @@ import CustomAppBar from "../app-bar/AppBar";
 import {useApi} from "../api/ApiProvider";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
+import {userDataDto} from "../api/dto/userData.dto";
 
 function HomePage() {
     const apiClient = useApi();
@@ -35,6 +36,7 @@ function HomePage() {
         },
     });
     const [openDialog, setOpenDialog] = useState(false);
+    const [openUserDialog, setOpenUserDialog] = useState(false);
     const [bookData, setBookData] = useState({
         title: '',
         author: '',
@@ -42,6 +44,13 @@ function HomePage() {
         publishYear: 0,
         availableCopies: 0,
         publisher: ''
+    });
+    const [userData, setUserData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        fullName: '',
+        role: 0
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,13 +68,35 @@ function HomePage() {
         }));
     };
 
+    const handleUserInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setUserData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
     apiClient.getBooks().then((response) => {
         console.log(response);
     });
 
-    const handleAddUser = () => {
+    const handleAddUser = async () => {
         console.log("Dodaj użytkownika");
-        // add user
+        try {
+            const response = await apiClient.addUser(userData);
+            console.log(response);
+            setOpenUserDialog(false);
+
+            setUserData({
+                name: '',
+                email: '',
+                password: '',
+                fullName: '',
+                role: 0
+            });
+        } catch (error) {
+            console.error("Błąd podczas dodawania użytkownika:", error);
+        }
     };
 
     const handleAddBook = async () => {
@@ -110,11 +141,48 @@ function HomePage() {
             <Button
             variant="contained"
             color="secondary"
-            onClick={handleAddUser}
+            onClick={() => setOpenUserDialog(true)}
             sx={{ width: '200px', backgroundColor: '#F59AA5', color: '#FFFFFF' }}
             >
                 {t('add user')}
         </Button>
+                <Dialog open={openUserDialog} onClose={() => setOpenUserDialog(false)}>
+                    <DialogTitle>{t('Add New User')}</DialogTitle>
+                    <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        <TextField
+                            label={t('username')}
+                            name="name"
+                            value={userData.name}
+                            onChange={handleUserInputChange}
+                            InputProps={{ style: { color: 'black' } }}
+                        />
+                        <TextField
+                            label={t('email')}
+                            name="email"
+                            value={userData.email}
+                            onChange={handleUserInputChange}
+                            InputProps={{ style: { color: 'black' } }}
+                        />
+                        <TextField
+                            label={t('password')}
+                            name="password"
+                            value={userData.password}
+                            onChange={handleUserInputChange}
+                            InputProps={{ style: { color: 'black' } }}
+                        />
+                        <TextField
+                            label={t('full name')}
+                            name="fullName"
+                            value={userData.fullName}
+                            onChange={handleUserInputChange}
+                            InputProps={{ style: { color: 'black' } }}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpenUserDialog(false)}>{t('cancel')}</Button>
+                        <Button onClick={handleAddUser} color="primary">{t('add')}</Button>
+                    </DialogActions>
+                </Dialog>
     <Button
         variant="contained"
         color="secondary"
