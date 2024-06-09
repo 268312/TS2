@@ -16,5 +16,17 @@
   "return date" : "Return date",
   "add user" : "Add a user",
   "add book" : "Add a book",
-  "add loan" : "Add a loan"
+  "add loan" : "Add a loan",
+  "title" : "Title",
+  "author" : "Author",
+  "ISBN" : "ISBN",
+  "publish year" : "Publish year",
+  "publisher" : "Publisher",
+  "available copies" : "Available copies",
+  "cancel" : "Cancel",
+  "add" : "Add",
+  "email": "Email address",
+  "full name": "Full name",
+  "user ID" : "User ID",
+  "book ID" : "Book ID"
 }

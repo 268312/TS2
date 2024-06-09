@@ -27,5 +27,7 @@
   "cancel" : "anuluj",
   "add" : "dodaj",
   "email": "Adres email",
-  "full name": "Imię i nazwisko"
+  "full name": "Imię i nazwisko",
+  "user ID" : "Numer użytkownika",
+  "book ID" : "Numer książki"
 }
