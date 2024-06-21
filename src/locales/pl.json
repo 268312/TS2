@@ -29,5 +29,7 @@
   "email": "Adres email",
   "full name": "Imię i nazwisko",
   "user ID" : "Numer użytkownika",
-  "book ID" : "Numer książki"
+  "book ID" : "Numer książki",
+  "users list" : "Lista użytkowników",
+  "end loan" : "Zakończ wypożyczenie"
 }

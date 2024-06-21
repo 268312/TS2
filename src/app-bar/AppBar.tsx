@@ -18,7 +18,7 @@ function CustomAppBar() {
     const { t } = useTranslation();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    const pages = [t('home'), t('books list'), t('loans list')];
+    const pages = [t('home'), t('books list'), t('loans list'), t('users list')];
     const settings = [t('log out')];
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,6 +42,9 @@ function CustomAppBar() {
                 case t('loans list'):
                     navigate('/loans');
                     break;
+                case t('users list'):
+                    navigate('/users');
+                    break;
                 default:
                     break;
             }
@@ -54,6 +57,8 @@ function CustomAppBar() {
             switch (page) {
                 case t('log out'):
                     navigate('/login');
+                    break;
+                default:
                     break;
             }
         }

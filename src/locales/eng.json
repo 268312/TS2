@@ -28,5 +28,7 @@
   "email": "Email address",
   "full name": "Full name",
   "user ID" : "User ID",
-  "book ID" : "Book ID"
+  "book ID" : "Book ID",
+  "users list" : "Users list",
+  "end loan" : "Return user's book"
 }

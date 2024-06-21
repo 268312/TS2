@@ -18,26 +18,26 @@ function LoginForm() {
     const apiClient = useApi();
     const initialValues = { username: '', password: '', rememberMe: false};
 
-    const onSubmit = useCallback(
-        (values:{username: string; password: string}, formik: any) => {
-            navigate('/home');
-        },
-        [navigate],
-    );
+    // const onSubmit = useCallback(
+    //     (values:{username: string; password: string}, formik: any) => {
+    //         navigate('/home');
+    //     },
+    //     [navigate],
+    // );
 
     // wersja z logowaniem i weryfikacja
-    // const onSubmit = useCallback(
-    //     (values: {username: string; password: string}, formik: any) => {
-    //         apiClient.login(values).then((response) => {
-    //             if (response.success) {
-    //                 navigate('/home');
-    //             } else {
-    //                 formik.setFieldError('username', t('invalid_username_password'));
-    //             }
-    //         });
-    //     },
-    //         [apiClient, navigate],
-    //     );
+    const onSubmit = useCallback(
+        (values: {username: string; password: string}, formik: any) => {
+            apiClient.login(values).then((response) => {
+                if (response.success) {
+                    navigate('/home');
+                } else {
+                    formik.setFieldError('username', t('invalid_username_password'));
+                }
+            });
+        },
+            [apiClient, navigate],
+        );
 
 
     const validationSchema = useMemo(() => yup.object().shape({

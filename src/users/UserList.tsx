@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import './BooksList.css';
+import './UserList.css';
 import CustomAppBar from '../app-bar/AppBar';
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -23,47 +23,41 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     marginTop: 10
 }));
 
-interface Book {
+interface User {
     id: number;
-    isbn: string;
-    title: string;
-    author: string;
-    publisher: string;
-    publishYear: number;
-    availableCopies: number;
+    name: string;
+    email: string;
 }
 
 interface ApiResponse {
     success: boolean;
-    data: Book[];
+    data: User[];
     statusCode?: number;
 }
 
-//nie działa a działało przed logowaniem
-
-export default function StickyHeaderTable() {
+export default function UserList() {
     const { t } = useTranslation();
     const apiClient = useApi();
 
-    const [rows, setRows] = React.useState<Book[]>([]);
+    const [rows, setRows] = React.useState<User[]>([]);
 
     React.useEffect(() => {
-        const getBooks = async () => {
+        const getUsers = async () => {
             try {
-                const response: ApiResponse = await apiClient.getBooks();
+                const response: ApiResponse = await apiClient.getUsers();
                 console.log("Odpowiedź z serwera:", response); // Dodane logowanie odpowiedzi z serwera
                 if (response.success && Array.isArray(response.data)) {
                     setRows(response.data);
-                    console.log("Ustawione książki:", response.data); // Dodane logowanie ustawionych danych
+                    console.log("Ustawieni użytkownicy:", response.data); // Dodane logowanie ustawionych danych
                 } else {
-                    console.error('Nie udało się pobrać danych o książkach:', response.statusCode);
+                    console.error('Nie udało się pobrać danych o użytkownikach:', response.statusCode);
                 }
             } catch (error) {
-                console.error('Błąd podczas pobierania danych o książkach:', error);
+                console.error('Błąd podczas pobierania danych o użytkownikach:', error);
             }
         };
 
-        getBooks(); // Wywołanie funkcji getBooks wewnątrz useEffect
+        getUsers(); // Wywołanie funkcji getUsers wewnątrz useEffect
     }, [apiClient]);
 
     return (
@@ -75,12 +69,8 @@ export default function StickyHeaderTable() {
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>ID</StyledTableCell>
-                                <StyledTableCell align="right">ISBN</StyledTableCell>
-                                <StyledTableCell align="right">Title</StyledTableCell>
-                                <StyledTableCell align="right">Author</StyledTableCell>
-                                <StyledTableCell align="right">Publisher</StyledTableCell>
-                                <StyledTableCell align="right">Publish Year</StyledTableCell>
-                                <StyledTableCell align="right">Available Copies</StyledTableCell>
+                                <StyledTableCell align="right">{t('username')}</StyledTableCell>
+                                <StyledTableCell align="right">{t('email')}</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -89,12 +79,8 @@ export default function StickyHeaderTable() {
                                     <TableCell component="th" scope="row">
                                         {row.id}
                                     </TableCell>
-                                    <TableCell align="right">{row.isbn}</TableCell>
-                                    <TableCell align="right">{row.title}</TableCell>
-                                    <TableCell align="right">{row.author}</TableCell>
-                                    <TableCell align="right">{row.publisher}</TableCell>
-                                    <TableCell align="right">{row.publishYear}</TableCell>
-                                    <TableCell align="right">{row.availableCopies}</TableCell>
+                                    <TableCell align="right">{row.name}</TableCell>
+                                    <TableCell align="right">{row.email}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

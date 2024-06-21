@@ -55,8 +55,8 @@ function HomePage() {
         role: 0
     });
     const [loanData, setLoanData] = useState({
-        userID: 0,
-        bookID: 0,
+        userId: 0,
+        bookId: 0,
         loanDate: '',
         dueDate:'',
         returnDate: ''
@@ -91,14 +91,13 @@ function HomePage() {
             [name]: value
         }));
     };
-    // nie chcialy sie dodawac id wiec osobny handleinputchange dla bookid i user id
+
     const handleLoanSliderInputChange = (name: string) => (event: any, newValue: any) => {
         setLoanData(prevState => ({
             ...prevState,
             [name]: newValue
         }));
     };
-
 
     apiClient.getBooks().then((response) => {
         console.log(response);
@@ -145,15 +144,15 @@ function HomePage() {
 
     const handleAddLoan = async () => {
         console.log("Dodaj wypożyczenie");
-        console.log(loanData); //do sprawdzenia, bo nie dodaje sie bookID i userID
+        console.log(loanData);
         try {
             const response = await apiClient.addLoan(loanData);
             console.log(response);
             setOpenLoanDialog(false);
 
             setLoanData({
-                userID: 0,
-                bookID: 0,
+                userId: 1,
+                bookId: 1,
                 loanDate: '',
                 dueDate: '',
                 returnDate: ''
@@ -293,8 +292,6 @@ function HomePage() {
                                 onChange={handleInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
-
-
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => setOpenDialog(false)}>{t('cancel')}</Button>
@@ -314,15 +311,15 @@ function HomePage() {
                         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <TextField
                                 label={t('user ID')}
-                                name="userID"
+                                name="userId"
                                 type="number"
-                                value={loanData.userID}
+                                value={loanData.userId}
                                 onChange={handleLoanInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
                             <Slider
-                                value={loanData.userID}
-                                onChange={handleLoanSliderInputChange('userID')}
+                                value={loanData.userId}
+                                onChange={handleLoanSliderInputChange('userId')}
                                 min={0}
                                 max={1000}
                                 step={1}
@@ -330,15 +327,15 @@ function HomePage() {
                             />
                             <TextField
                                 label={t('book ID')}
-                                name="bookID"
+                                name="bookId"
                                 type="number"
-                                value={loanData.bookID}
+                                value={loanData.bookId}
                                 onChange={handleLoanInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
                             <Slider
-                                value={loanData.bookID}
-                                onChange={handleLoanSliderInputChange('bookID')}
+                                value={loanData.bookId}
+                                onChange={handleLoanSliderInputChange('bookId')}
                                 min={0}
                                 max={1000}
                                 step={1}
@@ -353,7 +350,6 @@ function HomePage() {
                                 InputLabelProps={{ shrink: true }}
                                 InputProps={{ style: { color: 'black' } }}
                             />
-
                             <TextField
                                 label={t('due date')}
                                 name="dueDate"
