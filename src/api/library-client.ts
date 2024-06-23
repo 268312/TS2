@@ -4,6 +4,7 @@ import {bookDataDto, bookResponseDto} from "./dto/bookData.dto";
 import {userDataDto, userResponseDto} from "./dto/userData.dto";
 import {loanDataDto, loanResponseDto} from "./dto/loanData.dto";
 import {LoanToAddDataDto} from "./dto/LoanToAddData.dto";
+import {DeleteBookDto, deleteBookResponseDto} from "./dto/DeleteBook.dto";
 
 export type ClientResponse<T> = {
     success: boolean,
@@ -20,20 +21,29 @@ export class LibraryClient {
         });
     }
 
-    public async login(data: LoginDto): Promise<ClientResponse<LoginResponseDto | null>> {
+    public async login(data: LoginDto): Promise<{role: string | undefined;
+    data: LoginResponseDto | undefined;
+    success: boolean;
+    statusCode: number;}> {
         try{
             const response: AxiosResponse<LoginResponseDto> = await this.client.post('/auth/login', data);
             this.client.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+            localStorage.setItem("jwtToken", `${response.data.token}`);
+            localStorage.setItem("role", `${response.data.role}`);
+            localStorage.setItem("user_id", `${response.data.id}`);
+
             return {
                 success: true,
                 data: response.data,
+                role: response.data.role,
                 statusCode: response.status,
             }
         } catch (error) {
             const axiosError = error as AxiosError<Error>;
             return {
                 success: false,
-                data: null,
+                data: undefined,
+                role: undefined,
                 statusCode: axiosError.response?.status || 0
             };
         }
@@ -76,6 +86,27 @@ export class LibraryClient {
         }
     }
 
+    public async deleteBook(deleteBookDto: DeleteBookDto): Promise<ClientResponse<deleteBookResponseDto | null>> {
+        try {
+            const response = await this.client.delete('/api/books/delete', {
+                data: deleteBookDto
+            });
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0
+            };
+        }
+    }
+
+
     public async getUsers(): Promise<ClientResponse<any | null>> {
         try {
             console.log('ok2');
@@ -97,7 +128,7 @@ export class LibraryClient {
 
     public async addUser(userData: userDataDto): Promise<ClientResponse<userResponseDto | null>> {
         try {
-            const response = await this.client.post('/api/user/add', userData);
+            const response = await this.client.post('/auth/register', userData);
             return {
                 success: true,
                 data: response.data,

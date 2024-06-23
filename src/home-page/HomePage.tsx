@@ -6,14 +6,18 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    Slider,
     TextField,
-    ThemeProvider
+    ThemeProvider,
+    MenuItem,
+    Select,
+    InputLabel,
+    FormControl, SelectChangeEvent
 } from "@mui/material";
 import CustomAppBar from "../app-bar/AppBar";
 import {useApi} from "../api/ApiProvider";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
+import * as React from "react";
 
 function HomePage() {
     const apiClient = useApi();
@@ -48,18 +52,15 @@ function HomePage() {
         publisher: ''
     });
     const [userData, setUserData] = useState({
-        name: '',
+        username: '',
         email: '',
         password: '',
         fullName: '',
-        role: 0
+        role: ''
     });
     const [loanData, setLoanData] = useState({
         userId: 0,
-        bookId: 0,
-        loanDate: '',
-        dueDate:'',
-        returnDate: ''
+        bookId: 0
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,11 +112,11 @@ function HomePage() {
             setOpenUserDialog(false);
 
             setUserData({
-                name: '',
+                username: '',
                 email: '',
                 password: '',
                 fullName: '',
-                role: 0
+                role: ''
             });
         } catch (error) {
             console.error("Błąd podczas dodawania użytkownika:", error);
@@ -141,6 +142,12 @@ function HomePage() {
             console.error("Błąd podczas dodawania książki:", error);
         }
     };
+    const handleUserRoleChange = (event: SelectChangeEvent<string>) => {
+        setUserData(prevState => ({
+            ...prevState,
+            role: event.target.value as string
+        }));
+    };
 
     const handleAddLoan = async () => {
         console.log("Dodaj wypożyczenie");
@@ -152,10 +159,7 @@ function HomePage() {
 
             setLoanData({
                 userId: 1,
-                bookId: 1,
-                loanDate: '',
-                dueDate: '',
-                returnDate: ''
+                bookId: 1
             });
         } catch (error) {
             console.error("Błąd podczas dodawania wypożyczenia:", error);
@@ -189,8 +193,8 @@ function HomePage() {
                         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <TextField
                                 label={t('username')}
-                                name="name"
-                                value={userData.name}
+                                name="username"
+                                value={userData.username}
                                 onChange={handleUserInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
@@ -215,6 +219,18 @@ function HomePage() {
                                 onChange={handleUserInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
+                            <FormControl>
+                                <InputLabel>{t('role')}</InputLabel>
+                                <Select
+                                    name="role"
+                                    value={userData.role}
+                                    onChange={handleUserRoleChange}
+                                    sx={{ color: 'black' }}
+                                >
+                                    <MenuItem value={"ROLE_ADMIN"}>{t('librarian')}</MenuItem>
+                                    <MenuItem value={"ROLE_READER"}>{t('client')}</MenuItem>
+                                </Select>
+                            </FormControl>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => setOpenUserDialog(false)}>{t('cancel')}</Button>
@@ -261,14 +277,6 @@ function HomePage() {
                                 onChange={handleInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
-                            <Slider
-                                value={bookData.publishYear}
-                                onChange={handleSliderChange('publishYear')}
-                                min={0}
-                                max={2024}
-                                step={1}
-                                valueLabelDisplay="auto"
-                            />
                             <TextField
                                 label={t('available copies')}
                                 name="availableCopies"
@@ -276,14 +284,6 @@ function HomePage() {
                                 value={bookData.availableCopies}
                                 onChange={handleInputChange}
                                 InputProps={{ style: { color: 'black' } }}
-                            />
-                            <Slider
-                                value={bookData.availableCopies}
-                                onChange={handleSliderChange('availableCopies')}
-                                min={0}
-                                max={100}
-                                step={1}
-                                valueLabelDisplay="auto"
                             />
                             <TextField
                                 label={t('publisher')}
@@ -317,46 +317,12 @@ function HomePage() {
                                 onChange={handleLoanInputChange}
                                 InputProps={{ style: { color: 'black' } }}
                             />
-                            <Slider
-                                value={loanData.userId}
-                                onChange={handleLoanSliderInputChange('userId')}
-                                min={0}
-                                max={1000}
-                                step={1}
-                                valueLabelDisplay="auto"
-                            />
                             <TextField
                                 label={t('book ID')}
                                 name="bookId"
                                 type="number"
                                 value={loanData.bookId}
                                 onChange={handleLoanInputChange}
-                                InputProps={{ style: { color: 'black' } }}
-                            />
-                            <Slider
-                                value={loanData.bookId}
-                                onChange={handleLoanSliderInputChange('bookId')}
-                                min={0}
-                                max={1000}
-                                step={1}
-                                valueLabelDisplay="auto"
-                            />
-                            <TextField
-                                label={t('loan date')}
-                                name="loanDate"
-                                type="date"
-                                value={loanData.loanDate}
-                                onChange={handleLoanInputChange}
-                                InputLabelProps={{ shrink: true }}
-                                InputProps={{ style: { color: 'black' } }}
-                            />
-                            <TextField
-                                label={t('due date')}
-                                name="dueDate"
-                                type="date"
-                                value={loanData.dueDate}
-                                onChange={handleLoanInputChange}
-                                InputLabelProps={{ shrink: true }}
                                 InputProps={{ style: { color: 'black' } }}
                             />
                         </DialogContent>

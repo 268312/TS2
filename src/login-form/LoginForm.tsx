@@ -29,9 +29,13 @@ function LoginForm() {
     const onSubmit = useCallback(
         (values: {username: string; password: string}, formik: any) => {
             apiClient.login(values).then((response) => {
-                if (response.success) {
+                console.log(response.data);
+                if (response.success && response.role === "ROLE_ADMIN") {
                     navigate('/home');
-                } else {
+                } else if (response.success && response.role === "ROLE_READER") {
+                    navigate('/homereader');
+                }
+                else {
                     formik.setFieldError('username', t('invalid_username_password'));
                 }
             });

@@ -30,5 +30,7 @@
   "user ID" : "User ID",
   "book ID" : "Book ID",
   "users list" : "Users list",
-  "end loan" : "Return user's book"
+  "end loan" : "Return user's book",
+  "librarian" : "Librarian",
+  "reader" : "Client"
 }

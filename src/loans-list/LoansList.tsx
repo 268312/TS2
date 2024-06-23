@@ -207,14 +207,6 @@ export default function StickyHeaderTable() {
                                     onChange={handleLoanInputChange}
                                     InputProps={{ style: { color: 'black' } }}
                                 />
-                                <Slider
-                                    value={loanData.userId}
-                                    onChange={handleLoanSliderInputChange('user_id')}
-                                    min={0}
-                                    max={1000}
-                                    step={1}
-                                    valueLabelDisplay="auto"
-                                />
                                 <TextField
                                     label={t('book ID')}
                                     name="bookId"
@@ -222,14 +214,6 @@ export default function StickyHeaderTable() {
                                     value={loanData.bookId}
                                     onChange={handleLoanInputChange}
                                     InputProps={{ style: { color: 'black' } }}
-                                />
-                                <Slider
-                                    value={loanData.bookId}
-                                    onChange={handleLoanSliderInputChange('bookId')}
-                                    min={0}
-                                    max={1000}
-                                    step={1}
-                                    valueLabelDisplay="auto"
                                 />
                             </DialogContent>
                             <DialogActions>

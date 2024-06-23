@@ -2,8 +2,8 @@ export class userDataDto {
     email: string | undefined;
     fullName: string | undefined;
     password: string | undefined;
-    name: string | undefined;
-    role: number | undefined;
+    username: string | undefined;
+    role: string | undefined;
 }
 
 export class userResponseDto {

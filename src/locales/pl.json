@@ -31,5 +31,7 @@
   "user ID" : "Numer użytkownika",
   "book ID" : "Numer książki",
   "users list" : "Lista użytkowników",
-  "end loan" : "Zakończ wypożyczenie"
+  "end loan" : "Zakończ wypożyczenie",
+  "librarian" : "Bibliotekarz",
+  "reader" : "Klient"
 }

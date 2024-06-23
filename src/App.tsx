@@ -4,9 +4,12 @@ import './App.css';
 import LoginForm from "./login-form/LoginForm";
 import BooksList from "./books-list/BooksList";
 import HomePage from "./home-page/HomePage";
+import HomeReader from "./home-reader/HomeReader";
 import LoansList from "./loans-list/LoansList";
 import UserList from "./users/UserList";
+import BooksListReader from "./books-list-reader/BooksListReader";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import LoansListReader from "./loans-list-reader/LoansListReader";
 import ApiProvider from "./api/ApiProvider";
 import { I18nextProvider } from 'react-i18next';
 import i18n from "./i18n";
@@ -24,6 +27,8 @@ function App() {
           <Route path="/users" element={<UserList/>}/>
           <Route path="/" element={<Navigate to={"/login"}/>}/>
           <Route path="*" element={<h1>404</h1>} />
+          <Route path={"/homereader"} element={<HomeReader/>}/>
+          <Route path={"/bookslistreader"} element={<BooksListReader />}/>
       </Routes>
           </ApiProvider>
           </I18nextProvider>
