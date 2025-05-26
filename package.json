@@ -18,7 +18,6 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-i18next": "^8.1.0",
     "axios": "^1.7.2",
-    "eslint": "^8.57.0",
     "formik": "^2.4.6",
     "i18next": "^23.11.5",
     "i18next-browser-languagedetector": "^8.0.0",
@@ -27,7 +26,8 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^14.1.2",
     "react-router-dom": "^6.23.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "shebang-regex": "^4.0.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
@@ -57,6 +57,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": ""
+    "@babel/plugin-proposal-private-property-in-object": "",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^8.57.1",
+    "eslint-config-react-app": "^7.0.1"
   }
 }
